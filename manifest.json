@@ -1,21 +1,46 @@
 {
-   "background_page": "background.html", 
-   "browser_action": {
-      "default_icon": "icon_32.png",
-      "default_title": "Get selected HTML"
-   },
-   "description": "Gets the HTML of the user's selection",
-   "icons": {
-      "32": "icon_32.png"
-   },
-   "name": "HTML Selection",
-   "permissions": [ "http://*/*", "https://*/*", "tabs" ],
-     "content_scripts": [
-    {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["content_script.js"]
+  "name": "A!",
+  "description": "This extension is to integrate openai api with chrome",
+  "version": "1.1",
+  "manifest_version": 3,
+  "action": {
+    "default_title": "Click to open panel"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "scripting",
+    "activeTab",
+    "storage",
+    "notifications",
+    "contextMenus",
+    "clipboardWrite",
+    "clipboardRead",
+    "sidePanel"
+  ],
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [{
+    "matches": [
+       "<all_urls>"
+    ],
+    "js": ["content.js"],
+    "run_at": "document_end"    
     }
   ],
-   "version": "0.0.1"
-   
+  "commands": {
+    "run-foo": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Run \"foo\" on the current page."
+    }
+  },
+  "side_panel": {
+    "default_path": "sidepanel/sidepanel.html"
+  }
 }
